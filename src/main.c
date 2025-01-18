@@ -16,6 +16,7 @@ static int leofs_getattr(const char *path, struct stat *st);
 static int leofs_readdir(const char *path, void *buffer, 
                          fuse_fill_dir_t filler, off_t offset, 
                          struct fuse_file_info *fi);
+static int leofs_open(const char *path, struct fuse_file_info *fi);
 static int leofs_read(const char *path, char *buffer, 
                       size_t size, off_t offset, 
                       struct fuse_file_info *fi);
@@ -58,6 +59,16 @@ static int leofs_readdir(const char *path, void *buffer,
     return 0;
 }
 
+static int leofs_open(const char *path, struct fuse_file_info *fi)
+{
+    printf("[open] Tentando abrir %s\n", path);
+
+    if (strcmp(path, "/poema") != 0)
+        return -ENOENT;
+
+    return 0;
+}
+
 static int leofs_read(const char *path, char *buffer, 
                       size_t size, off_t offset, 
                       struct fuse_file_info *fi)
@@ -88,6 +99,7 @@ static int leofs_read(const char *path, char *buffer,
 static struct fuse_operations operations = {
     .getattr = leofs_getattr,
     .readdir = leofs_readdir,
+    .open    = leofs_open,
     .read    = leofs_read
 };
 
