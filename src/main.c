@@ -105,7 +105,8 @@ static struct fuse_operations operations = {
 
 void print_help(void)
 {
-    fputs("Uso: ./leofs <ponto_de_montagem>", stderr);
+    fputs("Uso: ./leofs <ponto_de_montagem>\n", stderr);
+    fputs("Para debugar: ./leofs -f <ponto_de_montagem>\n", stderr);
 }
 
 int main(int argc, char *argv[])
